@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import List, Dict, Optional, Union
 import json
 import re
-import datetime
+from datetime import datetime
 import os
 from db import execute_query
 import math
