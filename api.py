@@ -1,18 +1,32 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List, Optional
+from fastapi import FastAPI, HTTPException, Query, status, Request, Body
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-import re
-import psycopg2
-from psycopg2.extras import DictCursor
-from openai import OpenAI
-import os
+from pydantic import BaseModel
+from typing import List, Dict, Optional, Union
 import json
+import re
+import datetime
+import os
+from db import execute_query
 import math
-from datetime import datetime
-import traceback
+import openai
+import time
 
-app = FastAPI()
+# 创建FastAPI实例
+app = FastAPI(
+    title="Subway Finder API",
+    description="API for finding Subway outlets in Malaysia",
+    version="1.0.0"
+)
+
+# 添加CORS中间件，允许跨域请求
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 生产环境中应该设置为具体的前端URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 配置 - 使用环境变量
 openai_api_key = os.getenv("OPENAI_API_KEY", "你的API密钥")
