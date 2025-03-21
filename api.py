@@ -9,8 +9,9 @@ import datetime
 import os
 from db import execute_query
 import math
-import openai
+from openai import OpenAI  # 正确导入OpenAI客户端
 import time
+import psycopg2  # 添加psycopg2导入，因为connect_db函数需要
 
 # 创建FastAPI实例
 app = FastAPI(
