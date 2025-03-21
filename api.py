@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query, status, Request, Body
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from psycopg2.extras import DictCursor
 from pydantic import BaseModel
 from typing import List, Dict, Optional, Union
 import json
